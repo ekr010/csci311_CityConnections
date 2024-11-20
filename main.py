@@ -4,7 +4,7 @@ City Connections Project Due 12/06/2024
 Project by: Bryce Babcock, Tj Freeman, and Emily Rivera
 
 Tasks:
-    Emily: read in the file and create the menu
+    Emily: read in the file 
     Bryce: Breadth First Search
     Tj: Depth First Search
 '''
@@ -12,7 +12,7 @@ import sys
 
 def main():
     ''' 
-    Should be able to call code from terminal as python main.py input.txt output.txt
+    Should be able to call code from terminal as python main.py input.txt output.txt choice 
     '''
     # Check for correct number of arguments
     if len(sys.argv) != 3:
@@ -21,18 +21,20 @@ def main():
         
     input_file = sys.argv[1]
     output_file = sys.argv[2]
+    alg_choice = sys.argv[3]
 
     # Read the input graph
     graph = read_graph_from_file(input_file)
 
-    # Find the depth first search solution
-    depth_first = DFS(graph)
-
-    # Find the breadth first search solution
-    breadth_first = BFS(graph)
-
-    # Write both solutions to the output file
-    write_solutions_to_file(output_file, depth_first, breadth_first)
+    # Perform Correct Algorithm by choice
+    if alg_choice == "01":
+        depth_first = DFS(graph)
+        write_solutions_to_file(output_file, depth_first)
+    elif alg_choice == "02":
+        breadth_first = BFS(graph)
+        write_solutions_to_file(output_file, breadth_first)
+    else:
+        print("Invalid choice. Please enter 01 for Depth First Search or 02 for Breadth First Search.")
 
     print(f"Graph read from {input_file}")
     print(f"Solution written to {output_file}")
@@ -57,19 +59,17 @@ def read_graph_from_file(filename):
                 
                 # Add edge to graph structure
                 if start_node not in graph:
-                    graph[start_node] = []
+                    graph[start_node] = graph[end_node]
+                    graph[end_node] = graph[start_node]
 
-def write_solutions_to_file(filename, depth_first_solution, breadth_first_solution):
+def write_solutions_to_file(filename, algorithm_solution):
     '''
     Write both solutions to a file in the same format as the input file.
+
+    a line for each edge
     '''
-    with open(filename, 'w') as file:
-        file.write("Depth First Search Solution:\n")
-        for edge in depth_first_solution:
-            file.write(f"{edge[0]} {edge[1]} {edge[2]}\n")
-        
-        file.write("\nBreadth First Search Solution:\n")
-        for edge in breadth_first_solution:
+    with open(filename, 'w') as file:        
+        for edge in algorithm_solution:
             file.write(f"{edge[0]} {edge[1]} {edge[2]}\n")
 
 def BFS(graph):
