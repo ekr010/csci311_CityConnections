@@ -5,63 +5,82 @@ Project by: Bryce Babcock, Tj Freeman, and Emily Rivera
 
 Tasks:
     Emily: read in the file and create the menu
-    Bryce: Bredth First Search
+    Bryce: Breadth First Search
     Tj: Depth First Search
 '''
+import sys
 
 def main():
-
-  # shows a welcome header
-  print("╔" + 48 * "═" + "╗")
-  print(f"║{'Welcome to the Connecting a City project!':^48}║")
-  print("╚" + 48 * "═" + "╝")
-
-  # Get file from user
-  #getfile()
-  menu()
-
-
-def read_graph_from_file():
-  '''
-The format we will use for storing graphs in this project stores edges explicitly and vertices implicitly. This does not allow
-any vertices which have no incident edges, but such a vertex would be unconnectable, so we will assume there are none in
-our graph.
-
-Each line in the data file will represent one edge in the graph (except for comments, which are lines starting with #). It
-stores four pieces of information about each edge, separated by spaces:
-1. Edge ID: A unique integer for each edge.
-2. Start Node ID: The integer ID of the first vertex the edge touches.
-3. End Node ID: The integer ID of the second vertex the edge touches.
-4. Length: The floating-point length of the edge.
-
-You should read in an input file in this format, build a representation of the graph, compute your shortest connecting set
-of edges, and write it out as a file in the same format.
-
-Several sample datasets are available at https://www.cs.utah.edu/~lifeifei/SpatialDataset.htm [1]. Use files
-named “XXX Network’s Edges (Edge ID, Start Node ID, End Node ID, L2 Distance)”. The one pictured above is map
-4, City of San Joaquin Valley, and should be a good starting test.
-
-I should be able to call your code from a bash prompt (or script!) as languageCommand programName inputfile outputfile
-or ./programName inputfile outputfile, where
-2
-– languageCommand is “python”, “java”, or similar,
-– programName is your executable (If you’re using python, this is just your code file. If you’re using Java, C/C++,
-etc., this will be the output of the compiler.), and
-– inputfile contains the graph you need to connect, and your code should write its set of output edges to
-outputfile.
-  '''
-    pass
-
-
-def BFS():
+    ''' 
+    Should be able to call code from terminal as python main.py input.txt output.txt
     '''
-    Bredth First Search 
-    '''
-    pass
+    # Check for correct number of arguments
+    if len(sys.argv) != 3:
+        print("Usage: python main.py input_file output_file")
+        sys.exit(1)
+        
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
 
-def DFS():
-    '''
-    Depth First Search 
-    '''
-    pass
+    # Read the input graph
+    graph = read_graph_from_file(input_file)
 
+    # Find the depth first search solution
+    depth_first = DFS(graph)
+
+    # Find the breadth first search solution
+    breadth_first = BFS(graph)
+
+    # Write both solutions to the output file
+    write_solutions_to_file(output_file, depth_first, breadth_first)
+
+    print(f"Graph read from {input_file}")
+    print(f"Solution written to {output_file}")
+
+if __name__ == "__main__":
+    main()
+
+def read_graph_from_file(filename):
+    '''
+    Read the graph from a file and return it as a dictionary.
+    '''
+    graph = {}
+    
+    with open(filename, 'r') as file:
+        for line in file:
+            if not line.startswith('#'):
+                edge_id, start_node, end_node, length = line.split()
+                edge_id = int(edge_id)
+                start_node = int(start_node)
+                end_node = int(end_node)
+                length = float(length)
+                
+                # Add edge to graph structure
+                if start_node not in graph:
+                    graph[start_node] = []
+
+def write_solutions_to_file(filename, depth_first_solution, breadth_first_solution):
+    '''
+    Write both solutions to a file in the same format as the input file.
+    '''
+    with open(filename, 'w') as file:
+        file.write("Depth First Search Solution:\n")
+        for edge in depth_first_solution:
+            file.write(f"{edge[0]} {edge[1]} {edge[2]}\n")
+        
+        file.write("\nBreadth First Search Solution:\n")
+        for edge in breadth_first_solution:
+            file.write(f"{edge[0]} {edge[1]} {edge[2]}\n")
+
+def BFS(graph):
+    '''
+    Breadth First Search 
+    '''
+    print("Breadth First Search Solution:")
+
+def DFS(graph):
+    '''
+    Perform Depth First Search to find a subset of edges that connect all nodes.
+    This function returns a list of edges that form a Depth First Search tree.
+    '''
+    print("Depth First Search Solution:")
