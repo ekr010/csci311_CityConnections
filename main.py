@@ -44,9 +44,9 @@ if __name__ == "__main__":
 
 def read_graph_from_file(filename):
     '''
-    Read the graph from a file and return it as a dictionary.
+    Read the graph from a file and return it as a list of edges.
     '''
-    graph = {}
+    graph = []
     
     with open(filename, 'r') as file:
         for line in file:
@@ -58,9 +58,9 @@ def read_graph_from_file(filename):
                 length = float(length)
                 
                 # Add edge to graph structure
-                if start_node not in graph:
-                    graph[start_node] = graph[end_node]
-                    graph[end_node] = graph[start_node]
+                graph.append((edge_id, start_node, end_node, length))
+    
+    return graph
 
 def write_solutions_to_file(filename, algorithm_solution):
     '''
