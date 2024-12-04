@@ -6,41 +6,10 @@ Project by: Bryce Babcock, Tj Freeman, and Emily Rivera
 Tasks:
     Emily: read in the file 
     Bryce: Breadth First Search
-    Tj: Depth First Search
+    Tj: Kruskal's Algorithm
 '''
 import sys
-
-def main():
-    ''' 
-    Should be able to call code from terminal as python main.py input.txt output.txt choice 
-    '''
-    # Check for correct number of arguments
-    if len(sys.argv) != 3:
-        print("Usage: python main.py input_file output_file")
-        sys.exit(1)
-        
-    input_file = sys.argv[1]
-    output_file = sys.argv[2]
-    alg_choice = sys.argv[3]
-
-    # Read the input graph
-    graph = read_graph_from_file(input_file)
-
-    # Perform Correct Algorithm by choice
-    if alg_choice == "01":
-        depth_first = DFS(graph)
-        write_solutions_to_file(output_file, depth_first)
-    elif alg_choice == "02":
-        breadth_first = BFS(graph)
-        write_solutions_to_file(output_file, breadth_first)
-    else:
-        print("Invalid choice. Please enter 01 for Depth First Search or 02 for Breadth First Search.")
-
-    print(f"Graph read from {input_file}")
-    print(f"Solution written to {output_file}")
-
-if __name__ == "__main__":
-    main()
+from Algorithms.kruskal import *
 
 def read_graph_from_file(filename):
     '''
@@ -70,7 +39,7 @@ def write_solutions_to_file(filename, algorithm_solution):
     '''
     with open(filename, 'w') as file:        
         for edge in algorithm_solution:
-            file.write(f"{edge[0]} {edge[1]} {edge[2]}\n")
+            file.write(f"{edge[0]} {edge[1]} {edge[2]} {edge[3]}\n")
 
 def BFS(graph):
     '''
@@ -84,3 +53,36 @@ def DFS(graph):
     This function returns a list of edges that form a Depth First Search tree.
     '''
     print("Depth First Search Solution:")
+
+def main():
+    ''' 
+    Should be able to call code from terminal as python main.py input.txt output.txt choice 
+    '''
+    # Check for correct number of arguments
+    if len(sys.argv) != 4:
+        print("Usage: python main.py input_file output_file alg_choice")
+        sys.exit(1)
+        
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+    alg_choice = sys.argv[3]
+
+    # Read the input graph
+    graph = read_graph_from_file(input_file)
+
+    # Perform Correct Algorithm by choice
+    if alg_choice == "01":
+        depth_first = DFS(graph)
+        write_solutions_to_file(output_file, depth_first)
+    elif alg_choice == "02":
+        print("Using Kruskal's Algorithm")
+        breadth_first = KruskalMST(graph)
+        write_solutions_to_file(output_file, breadth_first)
+    else:
+        print("Invalid choice. Please enter 01 for Depth First Search or 02 for Breadth First Search.")
+
+    print(f"Graph read from {input_file}")
+    print(f"Solution written to {output_file}")
+
+if __name__ == "__main__":
+    main()
