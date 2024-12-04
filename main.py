@@ -47,13 +47,6 @@ def BFS(graph):
     '''
     print("Breadth First Search Solution:")
 
-def DFS(graph):
-    '''
-    Perform Depth First Search to find a subset of edges that connect all nodes.
-    This function returns a list of edges that form a Depth First Search tree.
-    '''
-    print("Depth First Search Solution:")
-
 def main():
     ''' 
     Should be able to call code from terminal as python main.py input.txt output.txt choice 
