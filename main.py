@@ -39,8 +39,12 @@ def write_solutions_to_file(filename, algorithm_solution):
     a line for each edge
     '''
     with open(filename, 'w') as file:        
+        sum = 0
         for edge in algorithm_solution:
+            sum += edge[3]
             file.write(f"{edge[0]} {edge[1]} {edge[2]} {edge[3]}\n")
+        print(f"Solution written to {filename}")
+        print("Total Weight: "+ str(sum))
 
 def main():
     ''' 
@@ -57,21 +61,19 @@ def main():
 
     # Read the input graph
     graph = read_graph_from_file(input_file)
+    print(f"Graph read from {input_file}")
 
     # Perform Correct Algorithm by choice
     if alg_choice == "01":
         print("Using Prim's Algorithm")
-        depth_first = prim(graph)
-        write_solutions_to_file(output_file, depth_first)
+        primSol = prim(graph)
+        write_solutions_to_file(output_file, primSol)
     elif alg_choice == "02":
         print("Using Kruskal's Algorithm")
-        breadth_first = KruskalMST(graph)
-        write_solutions_to_file(output_file, breadth_first)
+        KruskalSol = KruskalMST(graph)
+        write_solutions_to_file(output_file, KruskalSol)
     else:
         print("Invalid choice. Please enter 01 for Prim's Algorithm or 02 for Kruskal's Algorithm.")
-
-    print(f"Graph read from {input_file}")
-    print(f"Solution written to {output_file}")
 
 if __name__ == "__main__":
     main()
