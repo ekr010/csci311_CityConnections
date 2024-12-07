@@ -10,6 +10,7 @@ Tasks:
 '''
 import sys
 from Algorithms.kruskal import *
+from Algorithms.prim import *
 
 def read_graph_from_file(filename):
     '''
@@ -41,12 +42,6 @@ def write_solutions_to_file(filename, algorithm_solution):
         for edge in algorithm_solution:
             file.write(f"{edge[0]} {edge[1]} {edge[2]} {edge[3]}\n")
 
-def BFS(graph):
-    '''
-    Breadth First Search 
-    '''
-    print("Breadth First Search Solution:")
-
 def main():
     ''' 
     Should be able to call code from terminal as python main.py input.txt output.txt choice 
@@ -65,14 +60,15 @@ def main():
 
     # Perform Correct Algorithm by choice
     if alg_choice == "01":
-        depth_first = DFS(graph)
+        print("Using Prim's Algorithm")
+        depth_first = prim(graph)
         write_solutions_to_file(output_file, depth_first)
     elif alg_choice == "02":
         print("Using Kruskal's Algorithm")
         breadth_first = KruskalMST(graph)
         write_solutions_to_file(output_file, breadth_first)
     else:
-        print("Invalid choice. Please enter 01 for Depth First Search or 02 for Breadth First Search.")
+        print("Invalid choice. Please enter 01 for Prim's Algorithm or 02 for Kruskal's Algorithm.")
 
     print(f"Graph read from {input_file}")
     print(f"Solution written to {output_file}")

@@ -57,7 +57,7 @@ def KruskalMST(E):
     E.sort(key=lambda e: getWeight(e))
 
     # Initialize Disjoint Set
-    ds = DisjointSet(len(E)-1)
+    ds = DisjointSet(len(E)+1)
 
     mst = []  # stores edges of the MST
 

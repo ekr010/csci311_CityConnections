@@ -44,7 +44,7 @@ def prim(graph, start_node=0):
                 if neighbor not in visited:
                     heapq.heappush(min_heap, (next_weight, next_edge_id, v, neighbor))
                     
-    print (mst[4])
+    #print (mst[4])
     return mst
 
-prim(read_graph_from_file('cityData.txt'))
+#prim(read_graph_from_file('cityData.txt'))

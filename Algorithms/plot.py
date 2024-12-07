@@ -12,7 +12,7 @@ def generate_edges(n, m):
     return edges
 
 # Measure runtime
-ns = [10, 50, 100, 200, 500, 1000]
+ns = [10, 100, 1000, 10000, 50000]
 runtimes = []
 
 for n in ns:
