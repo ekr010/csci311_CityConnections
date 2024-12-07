@@ -1,24 +1,4 @@
-import heapq
 from collections import defaultdict
-
-def read_graph_from_file(filename):
-    '''
-    Read the graph from a file and return it as a list of edges.
-    '''
-    graph = []
-    
-    with open(filename, 'r') as file:
-        for line in file:
-            if not line.startswith('#'):
-                edge_id, start_node, end_node, length = line.split()
-                edge_id = int(edge_id)
-                start_node = int(start_node)
-                end_node = int(end_node)
-                length = float(length)
-                
-                # Add edge to graph structure
-                graph.append((edge_id, start_node, end_node, length))
-    return graph
 
 class PriorityQueue:
     def __init__(self):
@@ -35,11 +15,8 @@ class PriorityQueue:
         return bool(self.queue)
 
 
-
-
-def prim2(graph, start_node=0):
-
 #new prim with hard coded pq class
+def prim(graph, start_node=0):
 
     adj_list = defaultdict(list)
     for edge_id, u, v, w in graph:
@@ -64,9 +41,6 @@ def prim2(graph, start_node=0):
                     pq.push((next_weight, next_edge_id, v, neighbor))
                     
     return mst
-
-
-prim2(read_graph_from_file('cityData.txt'))
 
 
 
