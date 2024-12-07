@@ -1,3 +1,9 @@
+'''
+Prim Algorithm for Minimum Spanning Tree
+
+Bryce Babcock
+'''
+
 from collections import defaultdict
 
 class PriorityQueue:
