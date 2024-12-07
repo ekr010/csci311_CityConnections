@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import random
 import time
 from kruskal import *
+from prim import *
 
 def generate_edges(n, m):
     edges = []
@@ -19,12 +20,12 @@ for n in ns:
     m = 5 * n  # Assuming sparse graph
     edges = generate_edges(n, m)
     start_time = time.time()
-    KruskalMST(edges)
+    prim(edges)
     runtimes.append(time.time() - start_time)
 
 # Plot
 plt.plot(ns, runtimes, marker='o')
-plt.title('Runtime of Kruskal\'s Algorithm')
+plt.title('Runtime of Prim\'s Algorithm')
 plt.xlabel('Number of Vertices (n)')
 plt.ylabel('Runtime (seconds)')
 plt.grid()

@@ -39,12 +39,12 @@ def write_solutions_to_file(filename, algorithm_solution):
     a line for each edge
     '''
     with open(filename, 'w') as file:        
-        sum = 0
+        #sum = 0
         for edge in algorithm_solution:
-            sum += edge[3]
+            #sum += edge[3]
             file.write(f"{edge[0]} {edge[1]} {edge[2]} {edge[3]}\n")
         print(f"Solution written to {filename}")
-        print("Total Weight: "+ str(sum))
+        #print("Total Weight: "+ str(sum))
 
 def main():
     ''' 
